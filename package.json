@@ -1,6 +1,9 @@
 {
   "name": "Physics",
   "version": "1.0.0",
+  "engines": {
+    "node": "4.7.3"
+  },
   "description": "",
   "main": "app.js",
   "scripts": {
