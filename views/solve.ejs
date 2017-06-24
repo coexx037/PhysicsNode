@@ -1,0 +1,41 @@
+
+
+<table class="table table-bordered text-center">
+    <thead>
+    <tr>
+        <th class="text-center">Step</th>
+        <th class="text-center">Direction</th>
+        <th class="text-center">Solution</th>
+    </tr>
+    </thead>
+    
+    <tbody>
+    <%solveline.forEach(function(item, index){%>
+    <tr>
+       <td><%-item.dummy%></td>
+        <td><%-item.direction%></td>
+        <td><%-item.solution%></td> 
+    </tr>
+    <% }) %>
+    </tbody>
+</table>
+
+<table class="table table-bordered text-center">
+    <thead class="text-center">
+    <tr>
+        <th class="text-center">Variable</th>
+        <th class="text-center">Result</th>
+        <th class="text-center">Units</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%solution.forEach(function(item, index){%>
+    <tr>
+        <td><%-item.solve%></td>
+        <td><%-item.answer%></td>
+        <td><%-item.solveUnits%></td>
+    </tr>
+    <% }) %>
+    </tbody>
+</table>
+
