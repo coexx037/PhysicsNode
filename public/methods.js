@@ -24,7 +24,7 @@ var options = {
 
 $.each(options, function(key, value) {
     
-    var gval = (key == "g") ? 9.8 : '';
+    var gval = (key == "g") ? 9.81 : '';
 
 	var textInput = '<td><input type="text" id='+key+' name="vall" value='+gval+'></td>'
 	var unitsSelect = '<td><select id='+key+' name="units"></select></td>'
