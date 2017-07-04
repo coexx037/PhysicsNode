@@ -5,6 +5,8 @@ const express = require('express')
 var app = express()
 var bcrypt = require('bcrypt')
 var connection = require('./db')
+var salt = bcrypt.genSaltSync(10);
+
 
 
 var sql = 'select * from user_dfn where email = ?'
@@ -12,14 +14,14 @@ var sql2 = 'insert into user_dfn (first_name, last_name, email, password) values
 
 function authenticate(email, password, done){
     connection.query(sql, [email], function(err, rows){
-        console.log(rows[0].password);
         console.log(password);
+        console.log(rows[0])
         
         if(err){
             console.log('system error!')
             return done(err);
         }
-        if(!rows.length){
+        if(!rows[0].email){
             console.log('cant find email in db!')
             return done(null, false, {message: 'Incorrect email, cant find the email in db'})
         }
@@ -47,11 +49,13 @@ function register(req, email, password, done){
             return done(null, false, {message: 'passwords dont match'})
         }
         
+        var hash = bcrypt.hashSync(password, salt);
+        
         var newUser = {
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             email: email,
-            password: bcrypt.hashSync(password, 10)
+            password: hash
         }
         
         console.log(newUser);
