@@ -33,9 +33,10 @@ router
         var solveUnits = req.body.solve_units
         var direction = req.body.direction
         
-        
+//delete current problem for the given user        
         connection.query(sql2, [u])
         
+//insert new problem set for the given user        
         connection.query(sql3, [direction, solve, null, 's', solveUnits, u, 's'+solve])
         
         for(var key in vall) { 
@@ -46,7 +47,8 @@ router
         }
         
         var inserts = [u,u,u,u,u,u,u,u,u]
-        
+
+//query database and return the most complete solution for the given inputs
         connection.query(sql1, inserts, function(err, results){
             if(err){
                 console.log(err)
@@ -61,17 +63,18 @@ router
                 
             var solve_obj = {};
             
+//populate solve object            
             solution.forEach(function(obj, index){
                     solve_obj[obj.varsolve] = obj.converted_value;
             })
             
-            
+//return solution from solve object          
             var solve_lib = solve_library(solve_obj);
             var solve_key = solution[0].conc;
             var solve_conversion = solution[0].solve_conversion;
             console.log(solve_conversion);
             
-            
+//produce answer array containing solve variable, solve units and solve value       
             var answer = [{
                 solve: solve,
                 solveUnits: solveUnits,
@@ -79,7 +82,7 @@ router
                 
             }]
             
-            
+//populate the solve template with the solution            
             res.render('solve', {solveline: solveline, solution: answer})
                 
                 
