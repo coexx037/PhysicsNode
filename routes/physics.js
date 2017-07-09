@@ -33,7 +33,7 @@ router
         var solveUnits = req.body.solve_units
         var direction = req.body.direction
         
-//delete current problem for the given user        
+//delete current problem set for the given user        
         connection.query(sql2, [u])
         
 //insert new problem set for the given user        
