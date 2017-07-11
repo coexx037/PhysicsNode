@@ -1,7 +1,6 @@
 {
   "name": "v1",
-  "version": "1.0.0",
-  "description": "",
+  "version": "4.7.3",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -24,5 +23,15 @@
     "paper": "^0.11.3",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coexx037/PhysicsNode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/coexx037/PhysicsNode/issues"
+  },
+  "homepage": "https://github.com/coexx037/PhysicsNode#readme",
+  "description": ""
 }
