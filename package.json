@@ -1,6 +1,6 @@
 {
   "name": "v1",
-  "version": "4.7.3",
+  "version": "1.0.0",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -23,6 +23,9 @@
     "paper": "^0.11.3",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0"
+  },
+  "engines": {
+    "node": "4.7.3"
   },
   "devDependencies": {},
   "repository": {
