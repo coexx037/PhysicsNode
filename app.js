@@ -17,6 +17,8 @@ physicsRoutes = require('./routes/physics')
 
 require('./passport')
 
+var port = process.env.PORT || 8000;
+
 
 app
     .set('view engine', 'ejs')
@@ -37,6 +39,6 @@ app
         })
     })
     
-   .listen(process.env.PORT, process.env.IP, function(){
+   .listen(port, function(){
         console.log('server is running!')
     })
