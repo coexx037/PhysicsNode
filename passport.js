@@ -4,7 +4,7 @@ const LocalStrategy = require('passport-local').Strategy
 const express = require('express')
 var app = express()
 var bcrypt = require('bcrypt')
-var connection = require('./db')
+var pool = require('./db')
 var salt = bcrypt.genSaltSync(10);
 
 
@@ -14,41 +14,56 @@ var sql2 = 'insert into user_dfn (first_name, last_name, email, password) values
 
 //by default, local strategy uses username and password
 function authenticate(email, password, done){
-    connection.query(sql, [email], function(err, rows){
+    pool.getConnection(function(err, connection) {
+        connection.query(sql, [email], function(err, rows){
         console.log(password);
         console.log(rows[0])
         
         
         //check if email and passwords match
         if(err){
+            connection.release();
             console.log('system error!')
             return done(err);
         }
         if(!rows[0].email){
+            connection.release();
             console.log('cant find email in db!')
             return done(null, false, {message: 'Incorrect email, cant find the email in db'})
         }
         //compared hashed password to password stored in database
         if(!bcrypt.compareSync(password, rows[0].password)){
+            connection.release();
                 return done(null, false, {message: 'incorrect password'})
             }
+        connection.release();
         return done(null, rows[0])
             
         })
+    
+    if(err){
+        console.log(err);
+    }
+    })
+    
     }
         
 //by default, local strategy uses username and password
 function register(req, email, password, done){
-    connection.query(sql, [email], function(err, rows){
+    pool.getConnection(function(err, connection) {
+        connection.query(sql, [email], function(err, rows){
         
         //check if user already exists, check if passwords match
         if(err){
+            connection.release();
             return done(err)
         }
         if(rows[0]){
+            connection.release();
             return done(null, false, {message: 'an account with that email has already been created'})
         }
         if(password != req.body.password2){
+            connection.release();
             return done(null, false, {message: 'passwords dont match'})
         }
         
@@ -67,14 +82,21 @@ function register(req, email, password, done){
        connection.query(sql2, [newUser.first_name, newUser.last_name, newUser.email, newUser.password], function(err, rows){
            
            if(err){
+               connection.release();
                console.log('another error')
                return done(err)
            }
+           connection.release();
            newUser.User_ID = rows.insertId;
            return done(null, newUser)
        }) 
         
     })
+    if(err){
+        console.log(err);
+    }
+    })
+    
 }
 
 
@@ -91,8 +113,15 @@ passport.serializeUser(function(user, done){
 //used to deserialize user
 passport.deserializeUser(function(id, done){
     
-    connection.query('select * from User_Dfn where User_ID = ?', [id], function(err, rows){
+    pool.getConnection(function(err, connection) {
+       connection.query('select * from User_Dfn where User_ID = ?', [id], function(err, rows){
+           connection.release();
         done(err, rows[0])
+    }) 
+    if(err){
+        console.log(err);
+    }
     })
+    
     
 })

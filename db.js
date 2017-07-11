@@ -1,6 +1,6 @@
 const mysql = require('mysql')
 
-var connection = mysql.createConnection({
+var pool = mysql.createPool({
         host: 'us-cdbr-iron-east-03.cleardb.net',
         user: 'b73e052c103438',
         password: 'f18555ce',
@@ -8,8 +8,8 @@ var connection = mysql.createConnection({
         multipleStatements: true
     })
 
-connection.connect();
 
-module.exports = connection;
+
+module.exports = pool;
 
 //mysql://b73e052c103438:f18555ce@us-cdbr-iron-east-03.cleardb.net/heroku_4f4874e0596111c?reconnect=true

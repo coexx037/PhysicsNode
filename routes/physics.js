@@ -1,7 +1,7 @@
 var passport = require('passport'),
 router = require('express').Router(),
 mysql = require('mysql'),
-connection = require('../db')
+pool = require('../db')
 var sql1 = require('../query1')
 var solve_library = require('../solve_library')
 
@@ -33,7 +33,10 @@ router
         var solveUnits = req.body.solve_units
         var direction = req.body.direction
         
-//delete current problem set for the given user        
+        
+        pool.getConnection(function(err, connection){
+            
+//delete current problem set for the given user 
         connection.query(sql2, [u])
         
 //insert new problem set for the given user        
@@ -51,9 +54,11 @@ router
 //query database and return the most complete solution for the given inputs
         connection.query(sql1, inserts, function(err, results){
             if(err){
+                connection.release();
                 console.log(err)
             }else{
                 
+                connection.release();
                 var solveline = results[0]
                 var solution = results[1]
                 console.log(solveline)
@@ -92,6 +97,8 @@ router
 
             }
         })
+        })
+
         
    })
 

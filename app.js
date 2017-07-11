@@ -4,13 +4,12 @@ bodyParser = require('body-parser'),
 methodOverride = require('method-override'),
 session = require('express-session'),
 passport = require('passport'),
-connection = require('./db')
+pool = require('./db')
 var http = require("http");
 setInterval(function() {
     http.get("https://gentle-river-36159.herokuapp.com/");
 }, 300000); // every 5 minutes (300000)
 
-connection.connect()
 
 var authRoutes = require('./routes/auth'),
 physicsRoutes = require('./routes/physics')
