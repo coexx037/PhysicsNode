@@ -8,6 +8,8 @@ var connection = mysql.createConnection({
         multipleStatements: true
     })
 
+connection.connect();
+
 module.exports = connection;
 
 //mysql://b73e052c103438:f18555ce@us-cdbr-iron-east-03.cleardb.net/heroku_4f4874e0596111c?reconnect=true
