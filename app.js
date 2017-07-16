@@ -5,10 +5,7 @@ methodOverride = require('method-override'),
 session = require('express-session'),
 passport = require('passport'),
 pool = require('./db')
-var http = require("http");
-setInterval(function() {
-    http.get("https://gentle-river-36159.herokuapp.com/");
-}, 300000); // every 5 minutes (300000)
+
 
 
 var authRoutes = require('./routes/auth'),
