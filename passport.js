@@ -26,9 +26,8 @@ function authenticate(email, password, done){
             console.log('system error!')
             return done(err);
         }
-        if(!rows[0].email){
+        if(!rows[0]){
             connection.release();
-            console.log('cant find email in db!')
             return done(null, false, {message: 'Incorrect email, cant find the email in db'})
         }
         //compared hashed password to password stored in database
