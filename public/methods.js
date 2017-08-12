@@ -1,6 +1,6 @@
 var units = {
-	a: ['[m/s2]', '[mm/s2]', '[cm/s2]', '[km/s2]', '[in/s2]', '[ft/s2]', '[mi/(h*s)]'],
 	f: ['[N]', '[kN]', '[mN]', '[gf]', '[kgf]', '[ozf]', '[lbf]', '[kipf]'],
+	a: ['[m/s2]', '[mm/s2]', '[cm/s2]', '[km/s2]', '[in/s2]', '[ft/s2]', '[mi/(h*s)]'],
 	theta: ['[deg]'],
 	m: ['[kg]', '[mug]', '[mg]', '[Mg]', '[oz]', '[lb]', '[ton]'],
 	u: ['[]'],
@@ -9,9 +9,9 @@ var units = {
 }
 
 var options = {
-	g: units.a,
-	Fnet: units.f,
 	a: units.a,
+	Fnet: units.f,
+	g: units.a,
 	theta: units.theta,
 	m1: units.m,
 	m2: units.m,

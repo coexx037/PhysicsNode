@@ -19,7 +19,7 @@ router
         })
         }
         else{
-            res.render('login')
+            res.redirect('/login')
         }
     })
     
@@ -61,8 +61,6 @@ router
                 connection.release();
                 var solveline = results[0]
                 var solution = results[1]
-                console.log(solveline)
-                console.log(solution)
 
             if(solution.length > 0){
                 
@@ -77,7 +75,6 @@ router
             var solve_lib = solve_library(solve_obj);
             var solve_key = solution[0].conc;
             var solve_conversion = solution[0].solve_conversion;
-            console.log(solve_conversion);
             
 //produce answer array containing solve variable, solve units and solve value       
             var answer = [{
@@ -91,6 +88,8 @@ router
             res.render('solve', {solveline: solveline, solution: answer})
                 
                 
+            }else{
+                res.render('no_solve')
             }
 
                 

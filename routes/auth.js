@@ -3,14 +3,15 @@ var router = require('express').Router();
 
 router
    .get('/login', (req, res, next) => {
-    res.render('login')
+    res.render('login', { message: req.flash('loginMessage') })
    })
-   .post('/login', passport.authenticate('local', {
+   .post('/login', passport.authenticate('local-login', {
     successRedirect: '/',
-    failureRedirect: '/login'
+    failureRedirect: '/login',
+    failureFlash: true
    }))
    .get('/signup', (req, res, next) => {
-    res.render('signup')
+    res.render('signup', { message: req.flash('signupMessage') })
    })
    .post('/signup', passport.authenticate('local-register', {
     successRedirect: '/',

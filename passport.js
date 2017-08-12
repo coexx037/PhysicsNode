@@ -13,12 +13,9 @@ var sql = 'select * from user_dfn where email = ?'
 var sql2 = 'insert into user_dfn (first_name, last_name, email, password) values (?,?,?,?)' 
 
 //by default, local strategy uses username and password
-function authenticate(email, password, done){
+function authenticate(req, email, password, done){
     pool.getConnection(function(err, connection) {
         connection.query(sql, [email], function(err, rows){
-        console.log(password);
-        console.log(rows[0])
-        
         
         //check if email and passwords match
         if(err){
@@ -28,12 +25,12 @@ function authenticate(email, password, done){
         }
         if(!rows[0]){
             connection.release();
-            return done(null, false, {message: 'Incorrect email, cant find the email in db'})
+            return done(null, false, req.flash('loginMessage', 'Incorrect email/password combination.'))
         }
         //compared hashed password to password stored in database
         if(!bcrypt.compareSync(password, rows[0].password)){
             connection.release();
-                return done(null, false, {message: 'incorrect password'})
+                return done(null, false, req.flash('loginMessage', 'Incorrect email/password combination.'))
             }
         connection.release();
         return done(null, rows[0])
@@ -59,11 +56,11 @@ function register(req, email, password, done){
         }
         if(rows[0]){
             connection.release();
-            return done(null, false, {message: 'an account with that email has already been created'})
+            return done(null, false, req.flash('signupMessage', 'That email is already taken.'))
         }
         if(password != req.body.password2){
             connection.release();
-            return done(null, false, {message: 'passwords dont match'})
+            return done(null, false, req.flash('signupMessage', 'Passwords do not match.'))
         }
         
         //create user with hashed password
@@ -100,7 +97,7 @@ function register(req, email, password, done){
 
 
 //using named strategies for login and signup
-passport.use(new LocalStrategy(authenticate))
+passport.use('local-login', new LocalStrategy({passReqToCallback: true}, authenticate))
 passport.use('local-register', new LocalStrategy({passReqToCallback: true}, register))
 
 

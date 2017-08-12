@@ -4,8 +4,8 @@ bodyParser = require('body-parser'),
 methodOverride = require('method-override'),
 session = require('express-session'),
 passport = require('passport'),
-pool = require('./db')
-
+pool = require('./db'),
+flash = require("connect-flash")
 
 
 var authRoutes = require('./routes/auth'),
@@ -23,6 +23,7 @@ app
     .use(bodyParser.urlencoded({extended: true}))
     .use(methodOverride('_method'))
     .use(session({secret: 'i love dogs', resave: false, saveUninitialized: false}))
+    .use(flash())
     .use(passport.initialize())
     .use(passport.session())
     .use(authRoutes)

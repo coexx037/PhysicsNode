@@ -1,5 +1,4 @@
 
-
 <table class="table table-bordered text-center">
     <thead>
     <tr>
@@ -10,13 +9,13 @@
     </thead>
     
     <tbody>
-    <%solveline.forEach(function(item, index){%>
+        <%solveline.forEach(function(item, index){%>
     <tr>
        <td><%-item.dummy%></td>
         <td><%-item.direction%></td>
         <td><%-item.solution%></td> 
     </tr>
-    <% }) %>
+        <% }) %>
     </tbody>
 </table>
 
@@ -29,13 +28,12 @@
     </tr>
     </thead>
     <tbody>
-    <%solution.forEach(function(item, index){%>
-    <tr>
-        <td><%-item.solve%></td>
-        <td><%-item.answer%></td>
-        <td><%-item.solveUnits%></td>
-    </tr>
-    <% }) %>
+        <% solution.forEach(function(item, index){ %>
+            <tr>
+                <td><%-item.solve%></td>
+                <td><%-item.answer%></td>
+                <td><%-item.solveUnits%></td>
+            </tr>
+        <% }) %>
     </tbody>
 </table>
-
