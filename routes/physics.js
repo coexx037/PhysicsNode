@@ -19,6 +19,7 @@ router
         })
         }
         else{
+            req.flash('loginMessage', 'Please login or signup.')
             res.redirect('/login')
         }
     })

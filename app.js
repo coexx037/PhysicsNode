@@ -35,6 +35,11 @@ app
             authenticated: req.isAuthenticated()
         })
     })
+   .use(function(req, res, next){
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
+    next()
+})
     
    .listen(port, function(){
         console.log('server is running!')
